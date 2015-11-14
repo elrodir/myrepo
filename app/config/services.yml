@@ -1,9 +1,8 @@
-# Learn more about services, parameters and containers at
-# http://symfony.com/doc/current/book/service_container.html
-parameters:
-#    parameter_name: value
-
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    model.user:
+        class: AppBundle\Model\UserModel
+        arguments: [@doctrine.orm.entity_manager, @security.context, @session]
+
+    model.registration:
+        class: AppBundle\Model\RegistrationModel
+        arguments: ["@security.context", @doctrine.orm.entity_manager ,@model.user, @session]
