@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Test Center</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=2"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
+
+    <style>
+        hr {
+            margin-top: none;
+            border: none; /* Убираем границу для браузера Firefox */
+            color: #6f7d95; /* Цвет линии для остальных браузеров */
+            background-color: #6f7d95; /* Цвет линии для браузера Firefox и Opera */
+            height: 1px;
+        }
+
+        label {
+            margin-bottom: 0px;
+        }
+
+        .btn-width {
+            width: 200px;
+        }
+
+        .img:hover {
+            -moz-box-shadow: 0 0 10px grey;
+            -webkit-box-shadow: 0 0 10px grey;
+            box-shadow: 0 0 10px grey;
+        }
+        .map-hide{
+            position: absolute;
+            left: -100%;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="wrapper">
+
+    {{ render(controller('AppBundle:Default:sidebar', {'path': path(app.request.attributes.get('_route')) } )) }}
+
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12"><hr>
+                </div>
+            </div>
+            {% include "AppBundle::alert.html.twig" %}<br>
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="{{  asset('js/common.js') }}"></script>
+<script src="{{  asset('js/price.js') }}"></script>
+{% block js %}{% endblock %}
+<script>
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    $("#menu li span").click(function () {
+        $("#menu ul:visible").slideUp("normal");
+        if (($(this).next().is("ul")) && (!$(this).next().is(":visible"))) {
+            $(this).next().slideDown("normal");
+        }
+    });
+
+    var logout = $('#logout');
+
+    logout.click(function () {
+        if (confirm('Log out?')) {
+            window.location.href = '{{ url('logout') }}';
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{% extends "AppBundle::layout.html.twig" %}
+{% block content %}
+    {{ form_start(form, {'attr': {'class': 'registration-form'}}) }}
+
+    <div>
+
+        {{ form_widget(form.username, {'attr': {'class': 'form-control center-block', 'placeholder': 'login' }}) }}
+
+        {{ form_widget(form.password, {'attr': {'class': 'form-control center-block', 'placeholder': 'password' }}) }}
+
+        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success center-block'}}) }}
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
